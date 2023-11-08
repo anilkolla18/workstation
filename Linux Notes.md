@@ -2,6 +2,11 @@
 
 # Register RHEL with developer version
 
+```
+sudo subscription-manager register --username anil79.kolla --password Tony0518
+```
+
+
 # update Yum
    
    ```
