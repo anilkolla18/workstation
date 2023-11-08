@@ -2,7 +2,7 @@
 
 1) Open NotePad as an administrator.How-to: 
 2) search for NotePad and right-click to run as Administrator.
-Go to File > Open and select C:\windows\system32\drivers\etc\hosts
-At the bottom of the file, add a host entry by specifying an IP address and host; for example:
-192.168.1.1 example.awingu.com
-Click on File > Save to confirm the changes.
+3) Go to File > Open and select C:\windows\system32\drivers\etc\hosts
+4) At the bottom of the file, add a host entry by specifying an IP address and host; for example:
+    192.168.1.1 example.awingu.com
+5) Click on File > Save to confirm the changes.
