@@ -3,9 +3,10 @@
 # Register RHEL with developer version
 
 # update Yum
+   
    ```
-    yum update
-    ```
+   yum update
+   ```
 
 # To enable sudo for your user ID on RHEL, add your user ID to the wheel group:
 1. Become root by running su
