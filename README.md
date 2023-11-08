@@ -1,8 +1,6 @@
 # workstation
 
 
-/etc/hostname
-
 #Linux Notes
 
 To enable sudo for your user ID on RHEL, add your user ID to the wheel group:
