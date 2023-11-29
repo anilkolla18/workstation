@@ -15,7 +15,7 @@ For source code distributions, you'll need to compile Python on your system. Nav
 
 ```
 cd Python-3.12.0
-./configure
+./configure --prefix=/usr
 make
 sudo make install
 ```
