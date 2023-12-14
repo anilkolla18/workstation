@@ -1,3 +1,4 @@
+import argparse
 import yaml
 import base64
 
@@ -37,5 +38,16 @@ def create_secret_yaml(secret_name, cert_file, key_file, namespace="default"):
 
     print(f"Secret YAML file '{secret_name}_secret.yaml' created successfully.")
 
-# Example usage
-create_secret_yaml("my-tls-secret", "path/to/certificate.crt", "path/to/private-key.key", "my-namespace")
+def main():
+    parser = argparse.ArgumentParser(description="Create a Kubernetes TLS secret YAML file.")
+    parser.add_argument("secret_name", help="Name of the Kubernetes secret")
+    parser.add_argument("cert_file", help="Path to the certificate file")
+    parser.add_argument("key_file", help="Path to the private key file")
+    parser.add_argument("-n", "--namespace", default="default", help="Namespace for the secret")
+
+    args = parser.parse_args()
+
+    create_secret_yaml(args.secret_name, args.cert_file, args.key_file, args.namespace)
+
+if __name__ == "__main__":
+    main()
