@@ -4,9 +4,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Function to make a REST API call and verify response
-def make_rest_call(url):
+def make_rest_call(url, json_data, headers):
     try:
-        response = requests.get(url)
+        response = requests.post(url, json=json_data, headers=headers)
         if response.status_code == 200:
             return True, response.text
         else:
@@ -48,8 +48,22 @@ if __name__ == "__main__":
     # URL to make the REST call
     api_url = "https://api.example.com"
 
+    # JSON data for the POST request
+    json_data = {
+        "shutdown": {
+            "Mode": "reload",
+            "Delay": 10
+        }
+    }
+
+    # Headers for the POST request
+    headers = {
+        "Authorization": "Bearer your_token_here",
+        "Content-Type": "application/json"
+    }
+
     # Make REST call
-    success, response = make_rest_call(api_url)
+    success, response = make_rest_call(api_url, json_data, headers)
 
     if success:
         # If REST call is successful, send success email
