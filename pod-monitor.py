@@ -30,8 +30,12 @@ def send_email(subject, body):
 
 def check_pod_status():
     try:
-        # Replace with your actual kubectl command to get pod status
-        result = subprocess.run(['kubectl', 'get', 'pods', '--all-namespaces', '--output=jsonpath={range .items[*]}{.metadata.name}{"\t"}{.metadata.namespace}{"\t"}{.status.phase}{"\t"}{.status.containerStatuses[*].ready}{"\n"}'], stdout=subprocess.PIPE, check=True, text=True)
+        # Correctly structured kubectl command with proper quoting and escaping
+        command = [
+            'kubectl', 'get', 'pods', '--all-namespaces',
+            '--output=jsonpath={range .items[*]}{.metadata.name}{"\t"}{.metadata.namespace}{"\t"}{.status.phase}{"\t"}{.status.containerStatuses[*].ready}{"\n"}'
+        ]
+        result = subprocess.run(command, stdout=subprocess.PIPE, check=True, text=True)
 
         alert = False
         body = "Pod status alert:\n\n"
