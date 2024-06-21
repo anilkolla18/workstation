@@ -30,29 +30,38 @@ def send_email(subject, body):
 
 def check_pod_status():
     try:
-        # Correctly structured kubectl command with proper quoting and escaping
+        # Construct the kubectl command
         command = [
             'kubectl', 'get', 'pods', '--all-namespaces',
             '--output=jsonpath={range .items[*]}{.metadata.name}{"\t"}{.metadata.namespace}{"\t"}{.status.phase}{"\t"}{.status.containerStatuses[*].ready}{"\n"}'
         ]
-        result = subprocess.run(command, stdout=subprocess.PIPE, check=True, text=True)
 
-        alert = False
-        body = "Pod status alert:\n\n"
+        # Run the kubectl command and capture output and errors
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-        for line in result.stdout.strip().split('\n'):
-            pod_name, pod_namespace, pod_status, ready_status = line.split('\t')
+        # Check if the command was successful
+        if result.returncode == 0:
+            alert = False
+            body = "Pod status alert:\n\n"
 
-            # Check if the pod is in the desired state
-            if not ((pod_status == "Running" and ready_status == "True") or (pod_status == "Succeeded")):
-                alert = True
-                body += f"Pod {pod_name} in namespace {pod_namespace} is in {pod_status} state with READY status {ready_status}\n"
+            for line in result.stdout.strip().split('\n'):
+                pod_name, pod_namespace, pod_status, ready_status = line.split('\t')
 
-        if alert:
-            send_email("Kubernetes Pod Alert", body)
+                # Check if the pod is in the desired state
+                if not ((pod_status == "Running" and ready_status == "True") or (pod_status == "Succeeded")):
+                    alert = True
+                    body += f"Pod {pod_name} in namespace {pod_namespace} is in {pod_status} state with READY status {ready_status}\n"
 
+            if alert:
+                send_email("Kubernetes Pod Alert", body)
+        else:
+            # Print error message and stderr if command failed
+            print(f"Error running kubectl command: {result.stderr}")
+    
     except subprocess.CalledProcessError as e:
         print(f"Error running kubectl command: {e}")
+        print("Command stderr:")
+        print(e.stderr)
 
 def custom_action():
     # Define your custom action logic here
