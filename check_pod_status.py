@@ -30,6 +30,8 @@ def check_pod_status():
 
             if alert:
                 send_email("Kubernetes Pod Alert", body)
+            else:
+                print("All pods are in the desired state.")
         else:
             # Print error message and stderr if command failed
             print(f"Error running kubectl command: {result.stderr}")
