@@ -13,6 +13,8 @@ def check_pod_status():
         if result.returncode == 0:
             alert = False
             body = "Pod status alert:\n\n"
+            body += f"{'POD NAME':<30}{'NAMESPACE':<20}{'STATUS':<15}{'READY':<10}\n"
+            body += "-" * 75 + "\n"
 
             lines = result.stdout.strip().split('\n')
             headers = lines[0].split()  # Get the headers to know the indices
@@ -26,7 +28,7 @@ def check_pod_status():
                 # Check if the pod is in the desired state
                 if not ((pod_status == "Running" and ready_status == "True") or (pod_status == "Succeeded")):
                     alert = True
-                    body += f"Pod {pod_name} in namespace {pod_namespace} is in {pod_status} state with READY status {ready_status}\n"
+                    body += f"{pod_name:<30}{pod_namespace:<20}{pod_status:<15}{ready_status:<10}\n"
 
             if alert:
                 send_email("Kubernetes Pod Alert", body)
