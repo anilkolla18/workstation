@@ -1,0 +1,37 @@
+Responsibilities
+
+Designing and developing RESTful APIs using IBM API Connect (APIC) and AWS API Gateway, including defining API definitions, data models, and endpoints.
+Configuring and managing the API Gateway within API Connect to route API requests and handle authentication/authorization.
+Designing complex RESTful web services, IBM API Connect (APIC) and AWS API Gateway configurations, while being part of cross functional and agile development teams.
+Development of framework libraries which implement, or simplify the implementation of, various enterprise security patterns, especially those related to IBM API Connect and AWS API Gateway.
+Assisting development teams throughout the enterprise with the use of IBM API Connect/AWS API Gateway from both an API client and API provider perspective.
+Performing code reviews and code merges from all team members.
+Implementing security measures like OAuth, API keys, and rate limiting to protect APIs from unauthorized access.
+Creating comprehensive API documentation for developers to easily understand and utilize APIs.
+Monitoring API performance, identifying issues, and analyzing usage patterns to optimize API operations.
+Designing functional/system integration tests and automation.
+Working with other groups within IT to foster the DevOps culture around automation of builds, testing, deploys and scaling.
+Development of Terraform scripts and tools to facilitate build and deployment automation for integration into our enterprise DevOps solution.
+
+Requirements
+
+Experience with API Gateway configuration and management.
+Experience with API platform development in AWS API Gateway using Java and Lambda.
+Familiarity with SOAP services, and integrating them with API gateways is preferred.
+Strong understanding of API design principles (RESTful APIs, JSON, OpenAPI).
+Experience with API platform development in the IBM API Connect platform using Java, Javascript, and Linux shell languages.
+2+ years of experience with API Management platform integration and development.
+Strong familiarity with AWS.
+In-depth knowledge of the Open API 2.0 standard required; familiarity with Open API 3.0 or later is a plus.
+An In-depth knowledge of API service implementation is preferred.
+Proficiency in programming languages like Java, Node.js, Python (depending on the project).
+Knowledge of API security best practices.
+Familiarity with cloud platforms (AWS, Azure, GCP).
+5+ years of experience in Java (v8+) and Javascript enterprise development and integration middleware development.
+5+ years of experience as a software engineer.
+3+ years of experience in each of the following skills: Spring Core, Spring Integration, Spring Boot, Spring MVC, Spring Security.
+Knowledge of C# and .net is preferred.
+Work as a multi-skilled professional practicing Agile/SCRUM methodology.
+Passion for collaboration and working on agile teams.
+Good documentation skills are a plus.
+This is a hybrid position requiring some onsite visits sometimes weekly. Preference given to those within a commutable distance.
