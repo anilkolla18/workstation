@@ -28,7 +28,10 @@ for secret in $(kubectl get secrets -o jsonpath='{.items[*].metadata.name}'); do
     expiration_epoch=$(date -d "$expiration" +%s)
     days_left=$(( (expiration_epoch - NOW) / 86400 ))
 
-    if [ "$days_left" -le "$SOON_THRESHOLD" ]; then
+    # Handle expired certificates
+    if [ "$days_left" -lt 0 ]; then
+      echo "❌ $secret - EXPIRED (expired on $expiration)" >> "$temp_output"
+    elif [ "$days_left" -le "$SOON_THRESHOLD" ]; then
       echo "🚨 $secret - EXPIRES IN ${days_left} days (on $expiration)" >> "$temp_output"
     elif [ "$days_left" -le "$DAYS_THRESHOLD" ]; then
       echo "⚠️  $secret - Expires in ${days_left} days (on $expiration)" >> "$temp_output"
