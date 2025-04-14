@@ -8,6 +8,9 @@ echo "Kubernetes TLS Certificate Expiry Report"
 echo "Generated on: $(date)"
 echo "========================================"
 
+# Temporary file to store output
+temp_output=$(mktemp)
+
 for secret in $(kubectl get secrets -o jsonpath='{.items[*].metadata.name}'); do
   if kubectl get secret "$secret" -o jsonpath='{.data}' | grep -q 'tls.crt'; then
     cert_data=$(kubectl get secret "$secret" -o jsonpath='{.data.tls\.crt}' | base64 -d 2>/dev/null)
@@ -26,11 +29,17 @@ for secret in $(kubectl get secrets -o jsonpath='{.items[*].metadata.name}'); do
     days_left=$(( (expiration_epoch - NOW) / 86400 ))
 
     if [ "$days_left" -le "$SOON_THRESHOLD" ]; then
-      echo "🚨 $secret - EXPIRES IN $days_left DAYS on $expiration"
+      echo "🚨 $secret - EXPIRES IN ${days_left} days (on $expiration)" >> "$temp_output"
     elif [ "$days_left" -le "$DAYS_THRESHOLD" ]; then
-      echo "⚠️  $secret - expires in $days_left days on $expiration"
+      echo "⚠️  $secret - Expires in ${days_left} days (on $expiration)" >> "$temp_output"
     else
-      echo "✅ $secret - expires in $days_left days on $expiration"
+      echo "✅ $secret - Valid for ${days_left} more days (expires on $expiration)" >> "$temp_output"
     fi
   fi
 done
+
+# Sort by the number of days left (ascending order)
+sort -t' ' -k6,6n "$temp_output"
+
+# Clean up temporary file
+rm "$temp_output"
